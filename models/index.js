@@ -31,7 +31,12 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-db.nch = require('./test')(sequelize,Sequelize);
+db.nch =require('./envData')(sequelize,sequelize.DataTypes);
+db.domain= require('./domainData')(sequelize,sequelize.DataTypes);
+db.domainDetail = require('./domainDetail')(sequelize,sequelize.DataTypes);
+
+db.domain = db.domainDetail.belongsTo(db.domain);
+db.domainDetail = db.domain.hasMany(db.domain);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
